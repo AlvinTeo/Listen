@@ -44,13 +44,14 @@ public class Utils {
                     TopTracks topTrack = new TopTracks();
                     topTrack.setTrackName(trackObject.getString("name"));
                     topTrack.setTrackPlayCount(Integer.valueOf(trackObject.getString("playcount")));
+                    topTrack.setTrackListener(Integer.valueOf(trackObject.getString("listeners")));
                     topTrack.setTrackUrl(trackObject.getString("url"));
                     JSONObject artistObject = trackObject.getJSONObject("artist");
                     topTrack.setArtistName(artistObject.getString("name"));
                     JSONArray imagesArray = trackObject.getJSONArray("image");
                     topTrack.setArtistImage(imagesArray.getJSONObject(2).getString("#text"));
                     list.add(topTrack);
-                    Log.d(TAG, "parseTopTracksJson: "+ topTrack.getArtistImage());
+                    Log.d(TAG, "parseTopTracksJson: "+ topTrack.getTrackListener());
                 }
             }
         } catch (JSONException e) {
