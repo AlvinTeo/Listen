@@ -20,54 +20,55 @@ public class dataBase extends SQLiteOpenHelper {
 
     public dataBase(Context context) {
         super(context, DATABASE_NAME, null, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " TEXT, " + COL_3 + " INTEGER, " + COL_4 + " INTEGER, " + COL_5 + " TEXT,  " + COL_6 + " TEXT,  " + COL_7 + " TEXT)");
+        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,trackName TEXT,trackPlayCount INTEGER,trackListener INTEGER, trackUrl TEXT, artistName TEXT, artistImage TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(db);
     }
 
-    public void insertData(String trackName,String trackPlayCount,String trackListener,String trackUrl,String artistName, String artistImage) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2,trackName);
-        contentValues.put(COL_3,trackPlayCount);
-        contentValues.put(COL_4,trackListener);
-        contentValues.put(COL_5,trackUrl);
-        contentValues.put(COL_6,artistName);
-        contentValues.put(COL_7,artistImage);
-        db.insert(TABLE_NAME,null ,contentValues);
-        db.close();
+//    public void insertData(String trackName,int trackPlayCount,int trackListener,String trackUrl,String artistName, String artistImage) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COL_2,trackName);
+//        contentValues.put(COL_3,trackPlayCount);
+//        contentValues.put(COL_4,trackListener);
+//        contentValues.put(COL_5,trackUrl);
+//        contentValues.put(COL_6,artistName);
+//        contentValues.put(COL_7,artistImage);
+//        db.insert(dataBase.TABLE_NAME,null ,contentValues);
+//        db.close();
+//
+//    }
 
-    }
-
-    public ArrayList<TopTracks> getAllData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+TABLE_NAME,null);
-
-
-        ArrayList<TopTracks> result = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            String track_name = cursor.getString(1);
-            String track_play_count = cursor.getString(2);
-            String track_listener = cursor.getString(3);
-            String track_url = cursor.getString(4);
-            String artist_name = cursor.getString(5);
-            String artist_image = cursor.getString(6);
-
-            TopTracks current = new TopTracks(track_name,Integer.parseInt(track_play_count),Integer.parseInt(track_listener),track_url,artist_name,artist_image);
-            result.add(current);
-        }
-
-        cursor.close();
-        db.close();
-        return result;
-    }
+//    public ArrayList<TopTracks> getAllData() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery("select * from "+dataBase.TABLE_NAME,null);
+//
+//
+//        ArrayList<TopTracks> result = new ArrayList<>();
+//        while (cursor.moveToNext()) {
+//            String track_name = cursor.getString(1);
+//            String track_play_count = cursor.getString(2);
+//            String track_listener = cursor.getString(3);
+//            String track_url = cursor.getString(4);
+//            String artist_name = cursor.getString(5);
+//            String artist_image = cursor.getString(6);
+//
+//            TopTracks current = new TopTracks(track_name,Integer.parseInt(track_play_count),Integer.parseInt(track_listener),track_url,artist_name,artist_image);
+//            result.add(current);
+//        }
+//
+//        cursor.close();
+//        db.close();
+//        return result;
+//    }
 
 }
