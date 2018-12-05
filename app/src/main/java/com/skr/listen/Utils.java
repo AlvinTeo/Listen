@@ -37,7 +37,6 @@ public class Utils {
         try {
             JSONObject mainObject = new JSONObject(data);
             JSONObject resArray = mainObject.getJSONObject("tracks");
-            for (int i = 0; i < resArray.length(); i++) {
                 JSONArray tracksArray = resArray.getJSONArray("track");
                 for (int j = 0; j < tracksArray.length(); j++) {
                     JSONObject trackObject = tracksArray.getJSONObject(j);
@@ -53,10 +52,10 @@ public class Utils {
                     list.add(topTrack);
                     Log.d(TAG, "parseTopTracksJson: "+ topTrack.getTrackListener());
                 }
-            }
+
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d(TAG, "parseTopTracksJson: HELLO");
+            Log.d(TAG, "parseTopTracksJson: error");
         }
     }
 }
