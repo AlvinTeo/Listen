@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             url = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=" + API_KEY + "&format=json";
             topTracks = Utils.fetchTopTracks(url);
-            Log.d(TAG, "doInBackground: ");
+
             for(TopTracks current : topTracks){
                 String track_name = current.getTrackName();
                 Log.d(TAG, "doInBackground: track name" + track_name);
