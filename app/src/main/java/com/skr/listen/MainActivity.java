@@ -64,11 +64,8 @@ public class MainActivity extends AppCompatActivity {
 //                Log.d(TAG, "doInBackground: " + current_a.getArtistName());
 //                Log.d(TAG, "doInBackground: " + current_a.getArtistImage());
 //            }
-
             return null;
         }
-
-
     }
 
     private void initRecyclerView(){
