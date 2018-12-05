@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class dataBase extends SQLiteOpenHelper {
@@ -17,6 +19,7 @@ public class dataBase extends SQLiteOpenHelper {
     public static final String COL_5 = "trackUrl";
     public static final String COL_6 = "artistName";
     public static final String COL_7 = "artistImage";
+    private static final String TAG = "dataBase";
 
     public dataBase(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -43,6 +46,14 @@ public class dataBase extends SQLiteOpenHelper {
         contentValues.put(COL_5,trackUrl);
         contentValues.put(COL_6,artistName);
         contentValues.put(COL_7,artistImage);
+        Log.d(TAG, "insertData: " + trackName);
+        Log.d(TAG, "insertData: " + trackPlayCount);
+        Log.d(TAG, "insertData: " + trackListener);
+        Log.d(TAG, "insertData: " + trackUrl);
+        Log.d(TAG, "insertData: " + artistImage);
+        Log.d(TAG, "insertData: " + artistName);
+
+
         db.insert(dataBase.TABLE_NAME,null ,contentValues);
         db.close();
 
