@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    dataBase myDB ;
     private static final String TAG = "MainActivity";
     ArrayList<TopTracks> topTracks = new ArrayList<>();
     ArrayList<String> trackName = new ArrayList<>();
@@ -20,33 +19,29 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> trackDescription = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        myDB = new dataBase(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new FetchTopTracks(myDB).execute();
+        new FetchTopTracks().execute();
         initRecyclerView();
+
     }
 
 
     public class FetchTopTracks extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "b832400592df462ed1c55376edbff179";
         private String url;
-        private dataBase myDB;
-
-        FetchTopTracks(dataBase myDB){
-            this.myDB = myDB;
-        }
-
 
         @Override
         protected Void doInBackground(Void... voids) {
             url = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=" + API_KEY + "&format=json";
             topTracks = Utils.fetchTopTracks(url);
-
+            Log.d(TAG, "doInBackground: ");
             for(TopTracks current : topTracks){
                 String track_name = current.getTrackName();
+                Log.d(TAG, "doInBackground: track name" + track_name);
                 trackName.add(track_name);
 //                int track_play_count =current.getTrackPlayCount();
 //                int track_listener = current.getTrackListener();
@@ -75,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView:  init recycleCiew");
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        Log.d(TAG, "initRecyclerView:  init recyclerView  //" + topTracks.toString());
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         RecycleViewAdapter adapter = new RecycleViewAdapter(this,trackName,trackDescription,trackImage);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

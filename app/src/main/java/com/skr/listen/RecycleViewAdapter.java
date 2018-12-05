@@ -57,7 +57,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 Log.d(TAG, "onClick:  clicked on " + mImagesNames.get(position));
 
                 Toast.makeText(mContext, mImagesNames.get(position), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(mContext, mImagesDescription.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mImagesDescription.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -66,6 +66,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public int getItemCount() {
         return mImagesNames.size();
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
