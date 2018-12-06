@@ -61,7 +61,7 @@ public class Database extends SQLiteOpenHelper {
 
     public ArrayList<TopTracks> getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+Database.TABLE_NAME,null);
+        Cursor cursor = db.rawQuery("select * from "+Database.TABLE_NAME ,null);
 
 
         ArrayList<TopTracks> result = new ArrayList<>();
@@ -80,6 +80,32 @@ public class Database extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return result;
+    }
+
+
+    public TopTracks getTrack(String trackName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+Database.TABLE_NAME+" WHERE trackName = ?" , new String[]{trackName});
+        TopTracks current = null;
+        Log.d(TAG, "getTrack: " + trackName);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String track_name = cursor.getString(1);
+            String track_play_count = cursor.getString(2);
+            String track_listener = cursor.getString(3);
+            String track_url = cursor.getString(4);
+            String artist_name = cursor.getString(5);
+            String artist_image = cursor.getString(6);
+
+            current = new TopTracks(track_name,Integer.parseInt(track_play_count),Integer.parseInt(track_listener),track_url,artist_name,artist_image);
+            Log.d(TAG, "getTrack: " + track_name);
+
+        }
+
+        cursor.close();
+        db.close();
+
+        return current ;
     }
 
 }

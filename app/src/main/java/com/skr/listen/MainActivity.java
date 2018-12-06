@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        myDb = new Database(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 trackDescription.add(artist_name);
                 String artist_image = current.getArtistImage();
                 trackImage.add(artist_image);
-                //myDb.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
+                myDb.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
             }
 
 //            databaseTest = myDB.getAllData();

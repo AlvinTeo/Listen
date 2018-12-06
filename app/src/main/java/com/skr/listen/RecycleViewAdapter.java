@@ -55,8 +55,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), TrackActivity.class);
                 intent.putExtra(TrackActivity.EXTRA_TRACKNAME, mImagesNames.get(position));
-                intent.putExtra(TrackActivity.EXTRA_TRACKIMAGE, mImages.get(position));
-                intent.putExtra(TrackActivity.EXTRA_TRACKDESCRIPTION, mImagesDescription.get(position));
                 mContext.startActivity(intent);
             }
         });
