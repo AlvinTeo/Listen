@@ -1,22 +1,16 @@
 package com.skr.listen;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.database.Cursor;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 import android.view.View;
 import android.widget.ProgressBar;
-
-
-import org.json.JSONObject;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> trackImage = new ArrayList<>();
     ArrayList<String> trackDescription = new ArrayList<>();
     //ArrayList<TopTracks> databaseTest = new ArrayList<>();
-    dataBase myDB;
+//    Database myDB;
     RecyclerView recyclerView;
 
     private ProgressBar progressBar;
@@ -38,24 +32,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDB = new dataBase(this);
+//        myDB = new Database(this);
         progressBar = findViewById(R.id.progressBar);
         new FetchTopTracks().execute();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.example_menu,menu);
+        inflater.inflate(R.menu.example_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.item1:
-                Toast.makeText(this, "Item1 selected", Toast.LENGTH_SHORT).show();
-                return true;
+        switch (item.getItemId()) {
+//            case R.id.item1:
+//                Toast.makeText(this, "Item1 selected", Toast.LENGTH_SHORT).show();
+//                return true;
             case R.id.item2:
                 Toast.makeText(this, "Item2 selected", Toast.LENGTH_SHORT).show();
                 return true;
@@ -117,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView:  init recyclerView  //" + topTracks.toString());
         recyclerView = findViewById(R.id.recyclerView);
         RecycleViewAdapter adapter = new RecycleViewAdapter(this, trackName, trackDescription, trackImage);
         recyclerView.setAdapter(adapter);
