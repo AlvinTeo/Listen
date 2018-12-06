@@ -2,16 +2,16 @@ package com.skr.listen;
 
 import android.util.Log;
 
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
@@ -37,21 +37,20 @@ public class Utils {
         try {
             JSONObject mainObject = new JSONObject(data);
             JSONObject resArray = mainObject.getJSONObject("tracks");
-                JSONArray tracksArray = resArray.getJSONArray("track");
-                for (int j = 0; j < tracksArray.length(); j++) {
-                    JSONObject trackObject = tracksArray.getJSONObject(j);
-                    TopTracks topTrack = new TopTracks();
-                    topTrack.setTrackName(trackObject.getString("name"));
-                    topTrack.setTrackPlayCount(Integer.valueOf(trackObject.getString("playcount")));
-                    topTrack.setTrackListener(Integer.valueOf(trackObject.getString("listeners")));
-                    topTrack.setTrackUrl(trackObject.getString("url"));
-                    JSONObject artistObject = trackObject.getJSONObject("artist");
-                    topTrack.setArtistName(artistObject.getString("name"));
-                    JSONArray imagesArray = trackObject.getJSONArray("image");
-                    topTrack.setArtistImage(imagesArray.getJSONObject(2).getString("#text"));
-                    list.add(topTrack);
-                    Log.d(TAG, "parseTopTracksJson: "+ topTrack.getTrackListener());
-                }
+            JSONArray tracksArray = resArray.getJSONArray("track");
+            for (int j = 0; j < tracksArray.length(); j++) {
+                JSONObject trackObject = tracksArray.getJSONObject(j);
+                TopTracks topTrack = new TopTracks();
+                topTrack.setTrackName(trackObject.getString("name"));
+                topTrack.setTrackPlayCount(Integer.valueOf(trackObject.getString("playcount")));
+                topTrack.setTrackListener(Integer.valueOf(trackObject.getString("listeners")));
+                topTrack.setTrackUrl(trackObject.getString("url"));
+                JSONObject artistObject = trackObject.getJSONObject("artist");
+                topTrack.setArtistName(artistObject.getString("name"));
+                JSONArray imagesArray = trackObject.getJSONArray("image");
+                topTrack.setArtistImage(imagesArray.getJSONObject(2).getString("#text"));
+                list.add(topTrack);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 //            case R.id.item1:
-//                Toast.makeText(this, "Item1 selected", Toast.LENGTH_SHORT).show();
-//                return true;
+////                Toast.makeText(this, "Item1 selected", Toast.LENGTH_SHORT).show();
+////                return true;
             case R.id.item2:
                 Toast.makeText(this, "Item2 selected", Toast.LENGTH_SHORT).show();
                 return true;

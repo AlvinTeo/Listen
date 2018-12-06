@@ -1,6 +1,7 @@
 package com.skr.listen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -26,7 +27,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private ArrayList<String> mImages = new ArrayList<>();
     private Context mContext;
 
-    public RecycleViewAdapter( Context mContext,ArrayList<String> mImagesNames, ArrayList<String> mImagesDescription, ArrayList<String> mImages) {
+    public RecycleViewAdapter(Context mContext, ArrayList<String> mImagesNames, ArrayList<String> mImagesDescription, ArrayList<String> mImages) {
         this.mImagesNames = mImagesNames;
         this.mImagesDescription = mImagesDescription;
         this.mImages = mImages;
@@ -35,15 +36,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_listitem,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_listitem, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called");
-
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImages.get(position))
@@ -51,33 +50,31 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.image_name.setText(mImagesNames.get(position));
         holder.image_description.setText(mImagesDescription.get(position));
 
-        holder.parent_layout.setOnClickListener(new View.OnClickListener(){
+        holder.parent_layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Log.d(TAG, "onClick:  clicked on " + mImagesNames.get(position));
-
-                Toast.makeText(mContext, mImagesNames.get(position), Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, mImagesDescription.get(position), Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TrackActivity.class);
+                intent.putExtra(TrackActivity.EXTRA_TRACKNAME, mImagesNames.get(position));
+                intent.putExtra(TrackActivity.EXTRA_TRACKIMAGE, mImages.get(position));
+                intent.putExtra(TrackActivity.EXTRA_TRACKDESCRIPTION, mImagesDescription.get(position));
+                mContext.startActivity(intent);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
         return mImagesNames.size();
-
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView image ;
+        CircleImageView image;
         TextView image_name;
         TextView image_description;
         RelativeLayout parent_layout;
 
-        public ViewHolder(View itemView){
-
+        public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             image_name = itemView.findViewById(R.id.image_name);

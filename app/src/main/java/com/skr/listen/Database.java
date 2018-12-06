@@ -9,7 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class dataBase extends SQLiteOpenHelper {
+public class Database extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Tracks.db";
     public static final String TABLE_NAME = "tracks_table";
     public static final String COL_1 = "ID";
@@ -19,9 +19,9 @@ public class dataBase extends SQLiteOpenHelper {
     public static final String COL_5 = "trackUrl";
     public static final String COL_6 = "artistName";
     public static final String COL_7 = "artistImage";
-    private static final String TAG = "dataBase";
+    private static final String TAG = "Database";
 
-    public dataBase(Context context) {
+    public Database(Context context) {
         super(context, DATABASE_NAME, null, 1);
         SQLiteDatabase db = this.getWritableDatabase();
     }
@@ -54,14 +54,14 @@ public class dataBase extends SQLiteOpenHelper {
         Log.d(TAG, "insertData: " + artistName);
 
 
-        db.insert(dataBase.TABLE_NAME,null ,contentValues);
+        db.insert(Database.TABLE_NAME,null ,contentValues);
         db.close();
 
     }
 
     public ArrayList<TopTracks> getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+dataBase.TABLE_NAME,null);
+        Cursor cursor = db.rawQuery("select * from "+Database.TABLE_NAME,null);
 
 
         ArrayList<TopTracks> result = new ArrayList<>();
