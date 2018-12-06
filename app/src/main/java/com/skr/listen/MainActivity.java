@@ -3,7 +3,7 @@ package com.skr.listen;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> trackDescription = new ArrayList<>();
     //ArrayList<TopTracks> databaseTest = new ArrayList<>();
     RecyclerView recyclerView;
+    FloatingActionButton searchButton;
+    Database myDb ;
 
     private ProgressBar progressBar;
 
@@ -32,7 +33,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         progressBar = findViewById(R.id.progressBar);
+        searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         new FetchTopTracks().execute();
     }
 
@@ -50,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
 ////                Toast.makeText(this, "Item1 selected", Toast.LENGTH_SHORT).show();
 ////                return true;
             case R.id.item2:
-                Intent intent = new Intent(MainActivity.this,PopularActivity.class);
+                Intent intent = new Intent(MainActivity.this, PopularActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.item3:
-                Intent intent2 = new Intent(MainActivity.this,FavouriteActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, FavouriteActivity.class);
                 startActivity(intent2);
                 return true;
             default:
@@ -82,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 trackDescription.add(artist_name);
                 String artist_image = current.getArtistImage();
                 trackImage.add(artist_image);
-                //myDB.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
+                //myDb.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
             }
 
 //            databaseTest = myDB.getAllData();
