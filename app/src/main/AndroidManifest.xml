@@ -22,14 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TrackActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".PopularActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".FavouriteActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".SearchActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".TrackActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".PopularActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FavouriteActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
