@@ -12,30 +12,35 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.view.View;
+import android.widget.ProgressBar;
+
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
     ArrayList<TopTracks> topTracks = new ArrayList<>();
     ArrayList<String> trackName = new ArrayList<>();
-    ArrayList<String> trackImage = new ArrayList<>() ;
+    ArrayList<String> trackImage = new ArrayList<>();
     ArrayList<String> trackDescription = new ArrayList<>();
     //ArrayList<TopTracks> databaseTest = new ArrayList<>();
     dataBase myDB;
+    RecyclerView recyclerView;
 
+    private ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        myDB = new dataBase(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        myDB = new dataBase(this);
+        progressBar = findViewById(R.id.progressBar);
         new FetchTopTracks().execute();
-        initRecyclerView();
     }
 
     @Override
@@ -72,17 +77,17 @@ public class MainActivity extends AppCompatActivity {
             url = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=" + API_KEY + "&format=json";
             topTracks = Utils.fetchTopTracks(url);
 
-            for(TopTracks current : topTracks){
+            for (TopTracks current : topTracks) {
                 String track_name = current.getTrackName();
                 trackName.add(track_name);
-                int track_play_count =current.getTrackPlayCount();
+                int track_play_count = current.getTrackPlayCount();
                 int track_listener = current.getTrackListener();
                 String track_url = current.getTrackUrl();
                 String artist_name = current.getArtistName();
                 trackDescription.add(artist_name);
                 String artist_image = current.getArtistImage();
                 trackImage.add(artist_image);
-                myDB.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
+//                myDB.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
             }
 
 //            databaseTest = myDB.getAllData();
@@ -96,16 +101,28 @@ public class MainActivity extends AppCompatActivity {
 //            }
             return null;
         }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.INVISIBLE);
+            initRecyclerView();
+        }
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView:  init recyclerView  //" + topTracks.toString());
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(this,trackName,trackDescription,trackImage);
+        recyclerView = findViewById(R.id.recyclerView);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(this, trackName, trackDescription, trackImage);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
 
 
 }
