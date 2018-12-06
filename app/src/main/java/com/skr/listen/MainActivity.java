@@ -1,7 +1,9 @@
 package com.skr.listen;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> trackImage = new ArrayList<>();
     ArrayList<String> trackDescription = new ArrayList<>();
     //ArrayList<TopTracks> databaseTest = new ArrayList<>();
-//    Database myDB;
     RecyclerView recyclerView;
 
     private ProgressBar progressBar;
@@ -31,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        myDB = new Database(this);
         progressBar = findViewById(R.id.progressBar);
         new FetchTopTracks().execute();
     }
@@ -51,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
 ////                Toast.makeText(this, "Item1 selected", Toast.LENGTH_SHORT).show();
 ////                return true;
             case R.id.item2:
-                Toast.makeText(this, "Item2 selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,PopularActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.item3:
-                Toast.makeText(this, "Item3 selected", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(MainActivity.this,FavouriteActivity.class);
+                startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 trackDescription.add(artist_name);
                 String artist_image = current.getArtistImage();
                 trackImage.add(artist_image);
-//                myDB.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
+                //myDB.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
             }
 
 //            databaseTest = myDB.getAllData();
