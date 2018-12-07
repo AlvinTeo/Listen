@@ -1,13 +1,19 @@
 package com.skr.listen;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -17,14 +23,14 @@ public class TrackActivity extends AppCompatActivity {
 
     private TextView name, description, views, counts, url;
     private ImageView image;
-
+    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
 
-        Database myDb = new Database(this);
-        TopTracks track = myDb.getTrack(getIntent().getStringExtra(EXTRA_TRACKNAME));
+        final Database myDb = new Database(this);
+        final TopTracks track = myDb.getTrack(getIntent().getStringExtra(EXTRA_TRACKNAME));
 
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
@@ -32,6 +38,17 @@ public class TrackActivity extends AppCompatActivity {
         counts = findViewById(R.id.counts);
         image = findViewById(R.id.image);
         url = findViewById(R.id.url);
+        button = findViewById(R.id.add_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast toast=Toast.makeText(button.getContext(), "Added to favourite", Toast.LENGTH_LONG);//This is where the error shows
+                toast.show();
+                myDb.addFavourite(track);
+            }
+        });
+
 
 
         //url.setMovementMethod(LinkMovementMethod.getInstance());
@@ -50,6 +67,8 @@ public class TrackActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(button.getContext(), "Added to favourite", Toast.LENGTH_SHORT).show();
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
