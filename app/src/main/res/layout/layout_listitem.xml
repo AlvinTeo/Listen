@@ -1,41 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorGrey"
-    android:padding="15dp">
+    android:background="@color/colorGrey">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/image_name"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:layout_toRightOf="@+id/image"
         android:text="Canada"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/image_description"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image_name"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="16dp"
         android:layout_toRightOf="@+id/image"
         android:text="a country"
         android:textColor="@android:color/darker_gray"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/image_name" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Delete"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
