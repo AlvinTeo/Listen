@@ -177,7 +177,7 @@ public class Database extends SQLiteOpenHelper {
 
     public void deleteItem(String trackName) {
             SQLiteDatabase db = this.getWritableDatabase();
-            db.delete(TABLE_NAME_TWO, COL_2 + " = ?" , new String[]{trackName});
+            db.delete(TABLE_NAME_TWO, COL_2 + "= ?" , new String[]{trackName});
             db.close();
     }
 

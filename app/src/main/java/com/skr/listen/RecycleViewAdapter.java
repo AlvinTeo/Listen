@@ -29,6 +29,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private ArrayList<String> mImages = new ArrayList<>();
     private Boolean editable;
     private Context mContext;
+    Database mydb ;
 
     public RecycleViewAdapter(Context mContext, ArrayList<String> mImagesNames, ArrayList<String> mImagesDescription, ArrayList<String> mImages, Boolean editable) {
         this.mImagesNames = mImagesNames;
@@ -47,6 +48,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        mydb = new Database(mContext);
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImages.get(position))
@@ -60,7 +62,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 @Override
                 public void onClick(View v) {
                     String name = mImagesNames.get(position);
-
+                    mydb.deleteItem(name);
                     mImagesNames.remove(position);
                     mImagesDescription.remove(position);
                     mImages.remove(position);
