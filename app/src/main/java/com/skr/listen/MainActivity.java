@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(this, trackName, trackDescription, trackImage);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(this, trackName, trackDescription, trackImage, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

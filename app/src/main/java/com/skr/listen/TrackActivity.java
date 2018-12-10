@@ -67,7 +67,6 @@ public class TrackActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(button.getContext(), "Added to favourite", Toast.LENGTH_SHORT).show();
 
         switch (item.getItemId()) {
             case android.R.id.home:
