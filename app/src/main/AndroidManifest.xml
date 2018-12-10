@@ -32,6 +32,9 @@
             android:name=".FavouriteActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".SearchActivity"></activity>
+        <activity
+            android:name=".AboutUsActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
