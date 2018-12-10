@@ -59,6 +59,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String name = mImagesNames.get(position);
+
                     mImagesNames.remove(position);
                     mImagesDescription.remove(position);
                     mImages.remove(position);
