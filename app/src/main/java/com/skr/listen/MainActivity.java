@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                Intent intent = new Intent(MainActivity.this, FavouriteActivity.class);
                 startActivity(intent);
             }
         });
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.item3:
-                Intent intent2 = new Intent(MainActivity.this, FavouriteActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, AboutUsActivity.class);
                 startActivity(intent2);
                 return true;
             default:
@@ -97,15 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 myDb.insertData(track_name, track_play_count, track_listener, track_url, artist_name, artist_image);
             }
 
-//            databaseTest = myDB.getAllData();
-//            for (TopTracks current_a : databaseTest){
-//                Log.d(TAG, "doInBackground: " + current_a.getTrackName());
-//                Log.d(TAG, "doInBackground: " + current_a.getTrackPlayCount());
-//                Log.d(TAG, "doInBackground: " + current_a.getTrackListener());
-//                Log.d(TAG, "doInBackground: " + current_a.getTrackUrl());
-//                Log.d(TAG, "doInBackground: " + current_a.getArtistName());
-//                Log.d(TAG, "doInBackground: " + current_a.getArtistImage());
-//            }
             return null;
         }
 
