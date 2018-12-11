@@ -1,9 +1,13 @@
 package com.skr.listen;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -21,12 +25,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> trackName = new ArrayList<>();
     ArrayList<String> trackImage = new ArrayList<>();
     ArrayList<String> trackDescription = new ArrayList<>();
-    //ArrayList<TopTracks> databaseTest = new ArrayList<>();
     RecyclerView recyclerView;
     FloatingActionButton searchButton;
     Database myDb ;
-
     private ProgressBar progressBar;
+    private NotificationManager mNotifyManager;
+    private static final String PRIMARY_CHANNEL_ID = "notification_switch";
+    private static final int NOTIFICATION_ID = 0;
+
 
 
     @Override
@@ -34,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         myDb = new Database(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         progressBar = findViewById(R.id.progressBar);
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         new FetchTopTracks().execute();
+    createNotificationChannel();
+    getNotificationBuilder();
+
     }
 
     @Override
@@ -119,6 +126,54 @@ public class MainActivity extends AppCompatActivity {
         RecycleViewAdapter adapter = new RecycleViewAdapter(this, trackName, trackDescription, trackImage, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void createNotificationChannel() {
+
+        // Create a notification manager object.
+        mNotifyManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // Notification channels are only available in OREO and higher.
+        // So, add a check on SDK version.
+        if (android.os.Build.VERSION.SDK_INT >=
+                android.os.Build.VERSION_CODES.O) {
+
+            // Create the NotificationChannel with all the parameters.
+            NotificationChannel notificationChannel = new NotificationChannel
+                    (PRIMARY_CHANNEL_ID,
+                            getString(R.string.notification_channel_name),
+                            NotificationManager.IMPORTANCE_HIGH);
+
+            notificationChannel.enableLights(true);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setDescription
+                    (getString(R.string.notification_channel_description));
+
+            mNotifyManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+
+    private void getNotificationBuilder() {
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity
+                (this, NOTIFICATION_ID, notificationIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Build the notification with all of the parameters.
+        NotificationCompat.Builder notifyBuilder = new NotificationCompat
+                .Builder(this, PRIMARY_CHANNEL_ID)
+                .setContentTitle("Welcome to Listen")
+                .setContentText("Get the latest top tracks in Listen")
+                .setSmallIcon(R.drawable.ic_icon)
+                .setAutoCancel(true).setContentIntent(notificationPendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL);
+
+        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+
     }
 
 

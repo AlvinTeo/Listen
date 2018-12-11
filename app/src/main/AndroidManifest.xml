@@ -31,10 +31,13 @@
         <activity
             android:name=".FavouriteActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity"/>
         <activity
             android:name=".AboutUsActivity"
             android:parentActivityName=".MainActivity" />
+
+        <activity android:name=".NotifyMessage"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
