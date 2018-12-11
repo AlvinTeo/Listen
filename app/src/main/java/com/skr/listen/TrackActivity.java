@@ -61,9 +61,9 @@ public class TrackActivity extends AppCompatActivity {
 
         name.setText(track.getTrackName());
         description.setText(track.getArtistName());
-        views.setText(String.valueOf(track.getTrackListener()));
-        counts.setText(String.valueOf(track.getTrackPlayCount()));
-        url.setText(track.getTrackUrl());
+        views.setText("Listeners : "+String.valueOf(track.getTrackListener()));
+        counts.setText("Play Counts : "+String.valueOf(track.getTrackPlayCount()));
+        url.setText("Play Link : "+track.getTrackUrl());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
